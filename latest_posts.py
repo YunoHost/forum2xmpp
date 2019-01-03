@@ -20,7 +20,7 @@ def main(password):
         if "parent_category_id" in category:
             categories[category["id"]] = categories[category["parent_category_id"]] + "/" + category["name"]
 
-    for post in json.load(urlopen("https://forum.yunohost.org/posts.json"))["latest_posts"]:
+    for post in reversed(json.load(urlopen("https://forum.yunohost.org/posts.json"))["latest_posts"]):
         if post["id"] in db["post_ids"]:
             continue
         else:
