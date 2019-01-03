@@ -41,6 +41,7 @@ def main(password):
 
         with XMPPBot(password, room="forum") as bot:
             bot.sendToChatRoom(to_send)
+            time.sleep(3)
 
     json.dump(db, open("db.json", "w"))
 
