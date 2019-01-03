@@ -1,7 +1,8 @@
 import os
 import sys
+import time
 import json
-from urllib.request import urlopen
+from urllib2 import urlopen
 
 from to_room import XMPPBot
 
@@ -17,7 +18,7 @@ def main(password):
 
     for category in raw_categories:
         if "parent_category_id" in category:
-            categories[category["id"]] = f'{categories[category["parent_category_id"]]}/{category["name"]}'
+            categories[category["id"]] = categories[category["parent_category_id"]] + "/" + category["name"]
 
     for post in json.load(urlopen("https://forum.yunohost.org/posts.json"))["latest_posts"]:
         if post["id"] in db["post_ids"]:
@@ -33,7 +34,7 @@ def main(password):
         if len(extract) > 200:
             extract = extract[:200] + "..."
 
-        to_send = f'[{category}] @{user} on "{title}": {extract}'
+        to_send = '[%s] @%s on "%s": %s' % (category, user, title, extract)
 
         print(to_send)
 
