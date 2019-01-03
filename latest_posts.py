@@ -35,7 +35,7 @@ def main(password):
         if len(extract) > 200:
             extract = extract[:200] + "..."
 
-        to_send = '[%s] @%s on "%s": %s %s' % (category, user, title, extract, url)
+        to_send = '[%s] -> %s: @%s %s %s' % (category, title, user, extract, url)
 
         print(to_send)
 
