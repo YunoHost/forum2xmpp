@@ -29,12 +29,13 @@ def main(password):
         category = categories[post["category_id"]]
         title = post["topic_title"]
         user = post["username"]
+        url = "https://forum.yunohost.org/t/%s/%s/%s" % (post["topic_slug"], post["topic_id"], post["post_number"])
 
         extract = post["raw"].replace("\n", " ")
         if len(extract) > 200:
             extract = extract[:200] + "..."
 
-        to_send = '[%s] @%s on "%s": %s' % (category, user, title, extract)
+        to_send = '[%s] @%s on "%s": %s %s' % (category, user, title, extract, url)
 
         print(to_send)
 
