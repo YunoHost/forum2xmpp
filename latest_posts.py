@@ -40,7 +40,7 @@ def main(password):
 
             to_send = u'[%s] « %s » @%s: %s %s' % (category, title, user, extract, url)
 
-            print(to_send)
+            print(to_send.encode("utf-8"))
 
             bot.sendToChatRoom(to_send)
             time.sleep(3)
