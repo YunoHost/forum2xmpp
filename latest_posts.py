@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import os
 import sys
 import time
@@ -35,7 +37,7 @@ def main(password):
         if len(extract) > 200:
             extract = extract[:200] + "..."
 
-        to_send = '[%s] -> %s: @%s %s %s' % (category, title, user, extract, url)
+        to_send = u'[%s] « %s » @%s: %s %s' % (category, title, user, extract, url)
 
         print(to_send)
 
