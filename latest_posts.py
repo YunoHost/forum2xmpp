@@ -10,8 +10,14 @@ from to_room import XMPPBot
 
 
 def main(password):
+    rerun = False
+
     if os.path.exists("db.json"):
-        db = json.load(open("db.json"))
+        try:
+            db = json.load(open("db.json"))
+        except Exception:
+            rerun = True
+            db = {"post_ids": []}
     else:
         db = {"post_ids": []}
 
@@ -42,10 +48,18 @@ def main(password):
 
             print(to_send.encode("utf-8"))
 
-            bot.sendToChatRoom(to_send)
-            time.sleep(3)
+            # on rerun don't resend everything, we might miss a post but it's
+            # better than spaming
+            # better solution would be to avoid posting things older than last
+            # modified time of db.json but I don't have the time to do that
+            # right now
+            if not rerun:
+                bot.sendToChatRoom(to_send)
+                time.sleep(3)
 
-    json.dump(db, open("db.json", "w"))
+    # split operations in case dumps fail and I don't want to break the file
+    db = json.dumps(db)
+    open("db.json", "w").write(db)
 
 
 if __name__ == '__main__':
